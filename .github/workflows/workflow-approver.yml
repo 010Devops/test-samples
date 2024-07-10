@@ -20,7 +20,8 @@ jobs:
         shell: pwsh
         run: |
           $issueTitle = "Approval Required for Workflow"
-          $issueBody = @"Please review the workflow and comment 'approved' or 'rejected' to proceed.
+          $issueBody = @"
+                Please review the workflow and comment 'approved' or 'rejected' to proceed.
                   - approved: To approve the workflow.
                   - rejected: To reject the workflow.
                 Thank you."@

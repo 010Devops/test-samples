@@ -1,0 +1,27 @@
+name: Create Approval Issue
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  issues: write
+
+jobs:
+  create-issue:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create approval issue
+        id: create_issue
+        shell: pwsh
+        run: |
+          $issueTitle = "Approval Required for Workflow"
+          $issueBody = "Please review the workflow and comment 'approved' to proceed."
+          $response = Invoke-RestMethod -Method Post -Uri "https://api.github.com/repos/${{ github.repository }}/issues" -Headers @{Authorization = "Bearer $env:GITHUB_TOKEN"} -Body (@{title=$issueTitle; body=$issueBody} | ConvertTo-Json)
+          $response | ConvertTo-Json | Out-File -FilePath issue.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

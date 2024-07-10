@@ -1,0 +1,34 @@
+name: Check Approval
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  issues: read
+
+jobs:
+  check-approval:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for approval
+        id: check_approval
+        run: |
+          if echo "${{ github.event.comment.body }}" | grep -iq "approved"; then
+            echo "Approved"
+            echo "approval=true" >> $GITHUB_ENV
+          elif echo "${{ github.event.comment.body }}" | grep -iq "rejected"; then
+            echo "Rejected"
+            echo "approval=false" >> $GITHUB_ENV
+          else
+            echo "No action taken"
+            exit 0
+          fi
+
+      - name: Take action based on approval
+        if: ${{ env.approval == 'true' }}
+        run: echo "Proceeding with workflow as it is approved."
+
+      - name: Take action based on rejection
+        if: ${{ env.approval == 'false' }}
+        run: echo "Stopping workflow as it is rejected."

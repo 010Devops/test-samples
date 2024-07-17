@@ -15,7 +15,6 @@ jobs:
 
     - name: Run a script
       run: |
-        echo "This job runs on the main branch when manually triggered."
+        echo "This job runs on the main branch when triggered."
         echo ${{ github.ref }}
-        echo ${{ github.head_ref }}
-        echo ${{ github.Base_ref }}
+        echo ${{ github.ref_name }}

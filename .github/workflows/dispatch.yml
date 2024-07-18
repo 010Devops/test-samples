@@ -40,3 +40,9 @@ jobs:
         echo "This job runs on the main branch when triggered."
         echo ${{ github.ref }}
         echo ${{ github.ref_name }}
+
+    - name: Input logs
+      run: |
+        echo ${{ github.event.inputs.logLevel }}
+        echo ${{ github.event.inputs.Folder }}
+        echo ${{ github.event.inputs.Files }}

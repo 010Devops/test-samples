@@ -4,14 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       logLevel:
-        description: 'Log level'
+        description: 'Zip file path'
         required: true
-        default: 'warning'
         type: choice
         options:
-          - info
-          - warning
-          - debug
+          - info/export
+          - warning/export
+          - debug/export
 
 jobs:
   example-job:

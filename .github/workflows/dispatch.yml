@@ -6,6 +6,7 @@ on:
       logLevel:
         description: 'Zip file path'
         required: true
+        default: ''
         type: choice
         options:
           - info/export

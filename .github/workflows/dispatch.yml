@@ -47,3 +47,9 @@ jobs:
         echo ${{ github.event.inputs.logLevel }}
         echo ${{ github.event.inputs.Folder }}
         echo ${{ github.event.inputs.Files }}
+
+    - name: Check Import Solution Result
+      # if: steps.import-solution.conclusion == 'failure'
+      run: |
+        echo "Import solution step failed. Rerunning the job..."
+        gh run rerun ${{ github.run_id }} --failed

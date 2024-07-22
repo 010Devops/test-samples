@@ -53,3 +53,5 @@ jobs:
       run: |
         echo "Import solution step failed. Rerunning the job..."
         gh run rerun ${{ github.run_id }} --failed
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

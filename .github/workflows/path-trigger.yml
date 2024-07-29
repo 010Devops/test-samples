@@ -11,7 +11,6 @@ on:
 jobs:
   example-job:
     runs-on: ubuntu-latest
-    if: ${{ github.event.inputs.logLevel != 'Select an option' }}
 
     steps:
     - name: Checkout repository

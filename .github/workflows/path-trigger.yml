@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - './folder/test.txt'
+      - 'folder/test.txt'
   workflow_dispatch:
 
 jobs:

@@ -1,0 +1,25 @@
+name: Path based trigger
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - './folder/test.txt'
+  workflow_dispatch:
+
+jobs:
+  example-job:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.logLevel != 'Select an option' }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Run a script
+      run: |
+        echo "This job runs on the main branch when triggered."
+        echo ${{ github.ref }}
+        echo ${{ github.ref_name }}
+        echo ${{ github.run_attempt }}

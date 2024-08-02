@@ -1,0 +1,21 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Replace client secret in appsettings.json
+      run: |
+        sed -i 's/"ClientSecret": ".*"/"ClientSecret": "${{ secrets.CLIENT_SECRET }}"/' folder/appsettings.json
+
+    - name: Display appsettings.json content
+      run: cat folder/appsettings.json

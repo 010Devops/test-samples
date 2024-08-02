@@ -22,7 +22,7 @@ jobs:
 
     - name: Replace client id in appsettings.json
       run: |
-        sed -i 's/"ClientId": ".*"/"ClientId": "${{ secrets.CLIENT_ID }}"/' folder/appsettings.json
+        sed -i 's/"ClientId": ".*"/"ClientId": "${{ vars.CLIENT_ID }}"/' folder/appsettings.json
 
     - name: Display appsettings.json content
       run: cat folder/appsettings.json

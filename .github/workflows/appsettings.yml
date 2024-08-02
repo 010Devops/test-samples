@@ -26,3 +26,15 @@ jobs:
 
     - name: Display appsettings.json content
       run: cat folder/appsettings.json
+
+    - name: Replace tokensecretkey in web.config
+      run: |
+        sed -i 's|<add key="tokensecretkey" value=".*" />|<add key="tokensecretkey" value="${{ secrets.CLIENT_SECRET }}" />|' folder/web.config
+
+    - name: Replace tokenclientid in web.config
+      run: |
+        sed -i 's|<add key="tokenclientid" value=".*" />|<add key="tokenclientid" value="${{ vars.CLIENT_ID }}" />|' folder/web.config
+
+    - name: Display web.config content for verification
+      run: |
+        grep 'tokensecretkey' folder/web.config

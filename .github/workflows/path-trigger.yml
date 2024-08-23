@@ -28,7 +28,25 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Install and Build Node
-      working-directory: ${{ env.B2C_WEBAPP_PATH }}
-      run: | 
-          Remove-Item -Recurse -Force Folder
+      - name: Print working directory
+        run: |
+          echo "Current directory:"
+          pwd
+
+      - name: List files
+        run: |
+          echo "Listing files in the working directory:"
+          dir
+
+      - name: Remove folder
+        shell: pwsh
+        run: |
+          $folderPath = "D:\a\${{ github.repository }}/Folder"
+          Write-Host "Attempting to remove folder at path: $folderPath"
+          if (Test-Path $folderPath) {
+            Remove-Item -Recurse -Force $folderPath
+            Write-Host "Folder removed successfully."
+          } else {
+            Write-Host "Folder not found at path: $folderPath"
+            exit 1
+          }

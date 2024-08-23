@@ -23,6 +23,11 @@ jobs:
         echo ${{ github.ref_name }}
         echo ${{ github.run_attempt }}
 
+
+  win-job:
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Install and Build Node
       working-directory: ${{ env.B2C_WEBAPP_PATH }}
       run: | 

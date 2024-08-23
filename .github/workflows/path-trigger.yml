@@ -31,4 +31,4 @@ jobs:
     - name: Install and Build Node
       working-directory: ${{ env.B2C_WEBAPP_PATH }}
       run: | 
-          rm -r ./Folder
+          Remove-Item -Recurse -Force -Path Folder

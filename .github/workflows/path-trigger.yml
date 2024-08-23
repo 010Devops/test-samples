@@ -41,7 +41,7 @@ jobs:
       - name: Remove folder
         shell: pwsh
         run: |
-          $folderPath = "D:\a\test-samples\test-samples\Folder"
+          $folderPath = "D:\a\test-samples\test-samples\Folder-test"
           Write-Host "Attempting to remove folder at path: $folderPath"
           if (Test-Path $folderPath) {
             Remove-Item -Recurse -Force $folderPath

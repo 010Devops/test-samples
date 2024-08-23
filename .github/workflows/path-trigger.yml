@@ -45,11 +45,21 @@ jobs:
           Write-Host "Current working directory: $PWD"
           Write-Host "Attempting to remove folder at path: $folderPath"
 
-          # List all files to confirm existence
-          Write-Host "Listing contents of current directory:"
-          Get-ChildItem $PWD
-
+          # List all contents of the current directory, including hidden files
+          Write-Host "Listing all contents of current directory:"
+          Get-ChildItem -Force -Recurse $PWD
+          
           # Check if folder exists and remove
+          if (Test-Path $folderPath) {
+            Remove-Item -Recurse -Force $folderPath
+            Write-Host "Folder removed successfully."
+          } else {
+            Write-Host "Folder not found at path: $folderPath"
+            exit 1
+          }
+          
+          $folderPath = "D:\a\test-samples\test-samples\Folder-test"
+          Write-Host "Attempting to remove folder at path: $folderPath"
           if (Test-Path $folderPath) {
             Remove-Item -Recurse -Force $folderPath
             Write-Host "Folder removed successfully."

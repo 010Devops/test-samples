@@ -33,6 +33,15 @@ jobs:
           echo "Current directory:"
           pwd
 
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+         name: devappdeploy
+         path: | 
+           ./Folder-test
+           !./folder/**
+         retention-days: 1
+
       - name: List files
         run: |
           echo "Listing files in the working directory:"

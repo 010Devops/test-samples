@@ -9,8 +9,8 @@ on:
         type: choice
         options:
           - 'Select a Folder'
-          - ./Database/DB/dbo/Tables/
-          - ./Database/DB/custom_scripts/
+          - \Database\DB\dbo\Tables\
+          - \Database\DB\custom_scripts\
       Dev_SQL_file_name:
         description: 'Enter Dev SQL file name'
         required: true
@@ -25,7 +25,9 @@ jobs:
 
       - name: Set SQL Script Path
         id: set_sql_path
-        run: echo "SQL_SCRIPT_PATH=${{ github.event.inputs.Folder_name }}${{ github.event.inputs.Dev_SQL_file_name }}" >> $GITHUB_ENV
+        run:  |
+          SQL_SCRIPT_PATH="C:\\home\\site\\wwwroot\\sql-updates${{ github.event.inputs.Folder_name }}${{ github.event.inputs.Dev_SQL_file_name }}"
+          echo "SQL_SCRIPT_PATH=$SQL_SCRIPT_PATH"  >> $GITHUB_ENV
 
       - name: Test ENV
         run: |

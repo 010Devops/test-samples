@@ -1,0 +1,36 @@
+name: Test SQL workflow
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      Folder_name:
+        description: 'Select a SQL folder name'
+        required: true
+        type: choice
+        options:
+          - 'Select a Folder'
+          - ./Database/DB/dbo/Tables/
+          - ./Database/DB/custom_scripts/
+      Dev_SQL_file_name:
+        description: 'Enter Dev SQL file name'
+        required: true
+
+jobs:
+  Deploy-Dev-SQL-Script-and-Trigger-WebJob:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set SQL Script Path
+        id: set_sql_path
+        run: echo "SQL_SCRIPT_PATH=${{ github.event.inputs.Folder_name }}${{ github.event.inputs.Dev_SQL_file_name }}" >> $GITHUB_ENV
+
+      - name: Test ENV
+        run: |
+          echo "ENV value: ${SQL_SCRIPT_PATH}"
+          

@@ -1,9 +1,6 @@
 name: Test SQL workflow
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
       Folder_name:
@@ -19,9 +16,9 @@ on:
         required: true
 
 jobs:
-  Deploy-Dev-SQL-Script-and-Trigger-WebJob:
+  Test-SQL-Workflow:
     runs-on: ubuntu-latest
-
+    if: ${{ github.event.inputs.Folder_name != 'Select a SQL folder name' && github.event.inputs.Dev_SQL_file_name != '' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -32,5 +29,4 @@ jobs:
 
       - name: Test ENV
         run: |
-          echo "ENV value: ${SQL_SCRIPT_PATH}"
-          
+          echo "ENV value: $SQL_SCRIPT_PATH"

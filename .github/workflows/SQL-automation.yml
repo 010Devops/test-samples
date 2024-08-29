@@ -60,8 +60,16 @@ jobs:
             const fileArray = '${{ github.event.inputs.Dev_SQL_file_name }}'.split(',');
             console.log('basepath: ', basePath);
             console.log('filearray: ', fileArray);
+
+            const invalidFiles = fileArray.filter(fileName => !fileName.endsWith('.sql'));
+      
+            if (invalidFiles.length > 0) {
+              core.setFailed(`Files with invalid extensions found: ${invalidFiles.join(', ')}`);
+            }
             // Construct the full paths and store them in an array
-            const filesJson = fileArray.map(fileName => basePath + fileName);
+            const filesJson = fileArray
+              .filter(fileName => fileName.endsWith('.sql'))
+              .map(fileName => basePath + fileName);
             
             console.log('File paths set:', filesJson);
       

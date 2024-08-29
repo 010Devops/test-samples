@@ -105,14 +105,14 @@ jobs:
                 const joinedFiles = fileArray.join(',');
                 console.log('join:',joinedFiles);
                 if (joinedFiles !== inputFiles) {
-                  core.setFailed('Multiple filenames are not properly comma-separated.');
+                  core.setFailed(`Multiple filenames are not properly comma-separated: ${inputFiles}`);
                   return;
                 } else {
                     fileArray = inputFiles.split(',');
                 }
               } else {
                 if (fileArray.length > 1) {
-                  core.setFailed('Multiple filenames must be comma-separated.');
+                  core.setFailed(`Multiple filenames must be comma-separated: ${inputFiles}`);
                   return;
                 }
               }

@@ -58,4 +58,5 @@ jobs:
         
       - name: Test ENV
         run: |
+          echo "JSON value: ${{ env.FILES_JSON }}"
           echo "ENV value: $FILES_JSON"

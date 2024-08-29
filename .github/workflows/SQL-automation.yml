@@ -39,3 +39,29 @@ jobs:
       - name: Test ENV
         run: |
           echo "ENV value: $SQL_SCRIPT_PATH"
+
+      - name: Set Multiple SQL Script Paths
+        id: set_sql_paths
+        run: |
+          # Base path
+          BASE_PATH="${{ vars.AZURE_SCRIPT_PATH }}${{ github.event.inputs.Folder_name }}"
+
+          # Split the comma-separated list into an array
+          IFS=',' read -r -a FILE_ARRAY <<< "${{ github.event.inputs.Dev_SQL_file_name }}"
+
+          # Initialize an empty JSON array
+          FILES_JSON="[]"
+
+          # Construct paths for each file and add them to the JSON array
+          for FILE_NAME in "${FILE_ARRAY[@]}"; do
+            FILE_PATH="${BASE_PATH}${FILE_NAME}"
+            FILES_JSON=$(echo $FILES_JSON | jq --arg path "$FILE_PATH" '. += [$path]')
+            echo "File path set: $FILE_PATH"
+          done
+
+          # Save the JSON array to the environment variable
+          echo "FILES_JSON=$FILES_JSON" >> $GITHUB_ENV
+
+      - name: Test ENV
+        run: |
+          echo "ENV value: $FILES_JSON"

@@ -39,15 +39,24 @@ jobs:
       - name: Test ENV
         run: |
           echo "ENV value: $SQL_SCRIPT_PATH"
+          
+      - name: Set Multiple SQL Script Paths
+        run: |     
+          # Base path with escaped backslashes
+          BASE_PATH="${{ vars.SCRIPT_PATH }}${{ github.event.inputs.Folder_name }}"
+      
+          # Replace any backslashes with double backslashes
+          BASE_PATH="${BASE_PATH//\\/\\\\}"
+
+          echo "BASE_PATH=$BASE_PATH" >> $GITHUB_ENV
+        shell: bash
 
       - name: Set Multiple SQL Script Paths
         id: set_sql_paths
         uses: actions/github-script@v6
         with:
           script: |
-            const scriptPath = ${{ vars.SCRIPTPATH }}.replace(/\\/g, '\\\\');
-            const folderPath = ${{ github.event.inputs.Folder_name }}.replace(/\\/g, '\\\\');
-            let basePath = scripPath + folderPath;
+            let basePath = ${{ env.BASE_PATH }};
             const fileArray = '${{ github.event.inputs.Dev_SQL_file_name }}'.split(',');
             console.log('basepath: ', basePath);
             console.log('filearray: ', fileArray);

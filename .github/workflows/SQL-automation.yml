@@ -89,7 +89,7 @@ jobs:
           script: |
             const basePath = "${{ vars.AZURE_SCRIPT_PATH }}${{ github.event.inputs.Folder_name }}";
             const inputFiles = '${{ github.event.inputs.Dev_SQL_file_name }}';
-
+            console.log('input:',inputFiles);
             // Regular expression to match filenames with .sql extension
             const regex = /([^\s]+\.sql)/g;
 

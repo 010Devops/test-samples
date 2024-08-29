@@ -97,7 +97,7 @@ jobs:
             const isCommaSeparated = inputFiles.includes(',');
             console.log('comma: ',isCommaSeparated);
             // Extract valid filenames using regex
-            const fileArray = inputFiles.match(regex);
+            let fileArray = inputFiles.match(regex);
             console.log('array: ',fileArray);
             console.log('fileArray: ',fileArray);
             if (fileArray) {

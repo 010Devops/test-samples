@@ -47,7 +47,8 @@ jobs:
           script: |
             const basePath = '${{ vars.SCRIPTPATH }}${{ github.event.inputs.Folder_name }}';
             const fileArray = '${{ github.event.inputs.Dev_SQL_file_name }}'.split(',');
-            
+            console.log('basepath: ', basePath);
+            console.log('filearray: ', fileArray);
             // Construct the full paths and store them in an array
             const filesJson = fileArray.map(fileName => basePath + fileName);
             

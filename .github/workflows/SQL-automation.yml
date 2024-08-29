@@ -108,9 +108,7 @@ jobs:
                   core.setFailed('Multiple filenames are not properly comma-separated.');
                   return;
                 } else {
-                  if(fileArray.length > 1) {
                     fileArray = inputFiles.split(',');
-                  }
                 }
               } else {
                 if (fileArray.length > 1) {

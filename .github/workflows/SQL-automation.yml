@@ -111,6 +111,8 @@ jobs:
                     fileArray = inputFiles.split(',');
                 }
               } else {
+                fileArray = inputFiles.split('.sql');
+                console.log('arr: ',fileArray);
                 if (fileArray.length > 1) {
                   core.setFailed(`Multiple filenames must be comma-separated: ${inputFiles}`);
                   return;

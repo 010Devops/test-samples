@@ -51,37 +51,37 @@ jobs:
       #     echo "BASE_PATH=$BASE_PATH" >> $GITHUB_ENV
       #   shell: bash
 
-      - name: Set Multiple SQL Script Paths
-        id: set_sql_paths
-        uses: actions/github-script@v6
-        with:
-          script: |           
-            const basePath = "${{ vars.SCRIPTPATH }}${{ github.event.inputs.Folder_name }}";
-            const fileArray = '${{ github.event.inputs.Dev_SQL_file_name }}'.split(',');
-            console.log('basepath: ', basePath);
-            console.log('filearray: ', fileArray);
+      # - name: Set Multiple SQL Script Paths
+      #   id: set_sql_paths
+      #   uses: actions/github-script@v6
+      #   with:
+      #     script: |           
+      #       const basePath = "${{ vars.SCRIPTPATH }}${{ github.event.inputs.Folder_name }}";
+      #       const fileArray = '${{ github.event.inputs.Dev_SQL_file_name }}'.split(',');
+      #       console.log('basepath: ', basePath);
+      #       console.log('filearray: ', fileArray);
 
-            const invalidFiles = fileArray.filter(fileName => {
-              return !fileName.endsWith('.sql') || fileName.includes(' ');
-            });
+      #       const invalidFiles = fileArray.filter(fileName => {
+      #         return !fileName.endsWith('.sql') || fileName.includes(' ');
+      #       });
       
-            if (invalidFiles.length > 0) {
-              core.setFailed(`Files with invalid extensions found: ${invalidFiles.join(', ')}`);
-            }
-            // Construct the full paths and store them in an array
-            const filesJson = fileArray
-              .filter(fileName => fileName.endsWith('.sql'))
-              .map(fileName => basePath + fileName);
+      #       if (invalidFiles.length > 0) {
+      #         core.setFailed(`Files with invalid extensions found: ${invalidFiles.join(', ')}`);
+      #       }
+      #       // Construct the full paths and store them in an array
+      #       const filesJson = fileArray
+      #         .filter(fileName => fileName.endsWith('.sql'))
+      #         .map(fileName => basePath + fileName);
             
-            console.log('File paths set:', filesJson);
+      #       console.log('File paths set:', filesJson);
       
-            // Set the JSON array as an output
-            core.exportVariable('FILES_JSON', JSON.stringify(filesJson));
+      #       // Set the JSON array as an output
+      #       core.exportVariable('FILES_JSON', JSON.stringify(filesJson));
         
-      - name: Test ENV
-        run: |
-          echo "JSON value: ${{ env.FILES_JSON }}"
-          echo "ENV value: $FILES_JSON"
+      # - name: Test ENV
+      #   run: |
+      #     echo "JSON value: ${{ env.FILES_JSON }}"
+      #     echo "ENV value: $FILES_JSON"
 
       - name: Set SQL Script Paths
         uses: actions/github-script@v6

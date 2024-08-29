@@ -55,7 +55,7 @@ jobs:
           # Construct paths for each file and add them to the JSON array
           for FILE_NAME in "${FILE_ARRAY[@]}"; do
             FILE_PATH="${BASE_PATH}${FILE_NAME}"
-            FILES_JSON=$(echo $FILES_JSON | jq --arg path "$FILE_PATH" '. += [$path]')
+            FILES_JSON=$(echo "$FILES_JSON" | jq --arg path "$FILE_PATH" '. += [$path]')
             echo "File path set: $FILE_PATH"
           done
 

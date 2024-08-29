@@ -46,7 +46,9 @@ jobs:
           set -x
           # Base path
           BASE_PATH="${{ vars.AZURE_SCRIPT_PATH }}${{ github.event.inputs.Folder_name }}"
-      
+
+          BASE_PATH="${BASE_PATH//\\/\\\\}"
+          
           # Split the comma-separated list into an array
           IFS=',' read -r -a FILE_ARRAY <<< "${{ github.event.inputs.Dev_SQL_file_name }}"
       
@@ -63,7 +65,8 @@ jobs:
           # Save the JSON array to the environment variable
           echo "FILES_JSON=$FILES_JSON" >> $GITHUB_ENV
           set +x
-
+        shell: bash
+        
       - name: Test ENV
         run: |
           echo "ENV value: $FILES_JSON"

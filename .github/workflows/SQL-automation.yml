@@ -42,30 +42,19 @@ jobs:
 
       - name: Set Multiple SQL Script Paths
         id: set_sql_paths
-        run: |
-          set -x
-          # Base path
-          BASE_PATH="${{ vars.AZURE_SCRIPT_PATH }}${{ github.event.inputs.Folder_name }}"
-
-          BASE_PATH="${BASE_PATH//\\/\\\\}"
-          
-          # Split the comma-separated list into an array
-          IFS=',' read -r -a FILE_ARRAY <<< "${{ github.event.inputs.Dev_SQL_file_name }}"
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const basePath = ${{ vars.AZURE_SCRIPT_PATH }} + '${{ github.event.inputs.Folder_name }}';
+            const fileArray = '${{ github.event.inputs.Dev_SQL_file_name }}'.split(',');
+            
+            // Construct the full paths and store them in an array
+            const filesJson = fileArray.map(fileName => basePath + fileName);
+            
+            console.log('File paths set:', filesJson);
       
-          # Initialize an empty JSON array
-          FILES_JSON="[]"
-      
-          # Construct paths for each file and add them to the JSON array
-          for FILE_NAME in "${FILE_ARRAY[@]}"; do
-            FILE_PATH="${BASE_PATH}${FILE_NAME}"
-            FILES_JSON=$(jq --arg path "$FILE_PATH" '. += [$path]' <<< "$FILES_JSON")
-            echo "File path set: $FILE_PATH"
-          done
-      
-          # Save the JSON array to the environment variable
-          echo "FILES_JSON=$FILES_JSON" >> $GITHUB_ENV
-          set +x
-        shell: bash
+            // Set the JSON array as an output
+            core.exportVariable('FILES_JSON', JSON.stringify(filesJson));
         
       - name: Test ENV
         run: |

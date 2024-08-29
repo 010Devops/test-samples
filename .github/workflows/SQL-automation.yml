@@ -98,10 +98,11 @@ jobs:
 
             // Extract valid filenames using regex
             const fileArray = inputFiles.match(regex);
-
+            console.log('fileArray: ',fileArray);
             if (fileArray) {
               if (isCommaSeparated) {
                 const joinedFiles = fileArray.join(',');
+                console.log('join:',joinedFiles);
                 if (joinedFiles !== inputFiles) {
                   core.setFailed('Multiple filenames are not properly comma-separated.');
                   return;

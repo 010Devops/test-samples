@@ -45,7 +45,8 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const basePath = '${{ vars.SCRIPTPATH }}${{ github.event.inputs.Folder_name }}';
+            let basePath = '${{ vars.SCRIPTPATH }}${{ github.event.inputs.Folder_name }}';
+            basePath = basePath.replace(/\\/g, '\\\\');
             const fileArray = '${{ github.event.inputs.Dev_SQL_file_name }}'.split(',');
             console.log('basepath: ', basePath);
             console.log('filearray: ', fileArray);

@@ -9,8 +9,8 @@ on:
         type: choice
         options:
           - 'Select a Folder'
-          - \Database\DB\dbo\Tables\
-          - \Database\DB\custom_scripts\
+          - \\Database\\DB\\dbo\\Tables\\
+          - \\Database\\DB\\custom_scripts\\
       Dev_SQL_file_name:
         description: 'Enter Dev SQL file name'
         required: true

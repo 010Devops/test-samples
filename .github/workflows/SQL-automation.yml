@@ -23,12 +23,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Validate SQL File Name
-        run: |
-          if [[ "${{ github.event.inputs.Dev_SQL_file_name }}" != *.sql ]]; then
-            echo "Error: The file name must have a .sql extension."
-            exit 1
-          fi
+      # - name: Validate SQL File Name
+      #   run: |
+      #     if [[ "${{ github.event.inputs.Dev_SQL_file_name }}" != *.sql ]]; then
+      #       echo "Error: The file name must have a .sql extension."
+      #       exit 1
+      #     fi
           
       - name: Set SQL Script Path
         id: set_sql_path

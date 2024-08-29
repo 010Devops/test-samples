@@ -95,9 +95,10 @@ jobs:
 
             // Validate if the input is comma-separated
             const isCommaSeparated = inputFiles.includes(',');
-
+            console.log('comma: ',isCommaSeparated);
             // Extract valid filenames using regex
             const fileArray = inputFiles.match(regex);
+            console.log('array: ',fileArray);
             console.log('fileArray: ',fileArray);
             if (fileArray) {
               if (isCommaSeparated) {
@@ -126,7 +127,7 @@ jobs:
               const filesJson = fileArray
                 .filter(fileName => fileName.endsWith('.sql') && !fileName.includes(' '))
                 .map(fileName => basePath + fileName);
-
+              console.log('jsonfile: ',filesJson);
               // Set the JSON array as an output
               core.exportVariable('FILES_JSON1', JSON.stringify(filesJson));
 

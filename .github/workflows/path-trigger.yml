@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'folder/test.txt'
+    # paths:
+    #   - 'folder/test.txt'
   workflow_dispatch:
 
 jobs:
@@ -22,3 +22,68 @@ jobs:
         echo ${{ github.ref }}
         echo ${{ github.ref_name }}
         echo ${{ github.run_attempt }}
+
+
+  win-job:
+    runs-on: windows-latest
+
+    steps:
+      - name: Print working directory
+        run: |
+          echo "Current directory:"
+          pwd
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+         name: devappdeploy
+         path: | 
+           Folder-test
+           !/folder/**
+         retention-days: 1
+
+      - name: List files
+        run: |
+          echo "Listing files in the working directory:"
+          dir
+
+      - name: Remove folder
+        shell: pwsh
+        run: |
+          $folderPath = "$PWD\Folder-test"
+          Write-Host "Current working directory: $PWD"
+          Write-Host "Attempting to remove folder at path: $folderPath"
+
+          # List all contents of the current directory, including hidden files
+          Write-Host "Listing all contents of current directory:"
+          Get-ChildItem -Force -Recurse $PWD
+          
+          # Check if folder exists and remove
+          if (Test-Path $folderPath) {
+            Remove-Item -Recurse -Force $folderPath
+            Write-Host "Folder removed successfully."
+          } else {
+            Write-Host "Folder not found at path: $folderPath"
+            exit 1
+          }
+          
+          $folderPath = "D:\a\test-samples\test-samples\Folder-test"
+          Write-Host "Attempting to remove folder at path: $folderPath"
+          if (Test-Path $folderPath) {
+            Remove-Item -Recurse -Force $folderPath
+            Write-Host "Folder removed successfully."
+          } else {
+            Write-Host "Folder not found at path: $folderPath"
+            exit 1
+          }
+
+
+          $folderPath = "D:\a\test-samples\test-samples\Folder-test"
+          Write-Host "Attempting to remove folder at path: $folderPath"
+          if (Test-Path $folderPath) {
+            Remove-Item -Recurse -Force $folderPath
+            Write-Host "Folder removed successfully."
+          } else {
+            Write-Host "Folder not found at path: $folderPath"
+            exit 1
+          }

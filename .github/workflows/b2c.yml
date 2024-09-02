@@ -1,0 +1,17 @@
+name: Build and Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: List Folders in B2C_WEBAPP_PATH
+      run: |
+        Get-ChildItem -Path ./folder -Directory
+      shell: pwsh

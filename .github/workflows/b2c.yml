@@ -1,6 +1,9 @@
 name: B2C
 
 on:
+  pull_request:
+    paths:
+      - 'folder/test.txt'
   workflow_dispatch:
 
 jobs:

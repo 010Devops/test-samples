@@ -13,5 +13,5 @@ jobs:
 
     - name: List Folders in B2C_WEBAPP_PATH
       run: |
-        Get-ChildItem -Path  D:\a\test-samples\test-samples\folder\* -Recurse
+        Get-ChildItem -Path  D:\a\test-samples\test-samples\folder -Recurse
       shell: pwsh

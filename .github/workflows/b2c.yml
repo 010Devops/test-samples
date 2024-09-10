@@ -28,3 +28,5 @@ jobs:
            echo "Error: The branch name does not meet the required criteria. Please select a valid branch for this workflow."
            exit 1
          fi
+      shell: bash
+      

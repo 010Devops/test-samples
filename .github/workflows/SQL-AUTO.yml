@@ -1,4 +1,4 @@
-name: Test SQL automation workflow
+name: Test SQL auto workflow
 
 on:
   # push:

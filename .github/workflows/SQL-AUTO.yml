@@ -19,13 +19,5 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           
-          # Check if the tag exists
-          if git rev-parse --quiet --verify "refs/tags/last-deploy"; then
-            echo "Tag 'last-deploy' already exists. Updating..."
-            git tag -f last-deploy  # Force update the tag
-          else
-            echo "Tag 'last-deploy' does not exist. Creating new tag..."
-            git tag last-deploy  # Create a new tag
-          fi
-          
+          git tag -f last-deploy  # Force update the tag
           git push origin last-deploy --force

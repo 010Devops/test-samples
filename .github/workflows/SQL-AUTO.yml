@@ -1,0 +1,24 @@
+name: Test SQL automation workflow
+
+on:
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
+
+jobs:
+  Test-SQL-Workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Tag the Latest Commit After Successful Deployment
+        if: success()  # Only tag if deployment was successful
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          
+          # Tag the current commit as the last successful deployment
+          git tag -f last-deploy
+          git push origin --tags

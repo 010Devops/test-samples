@@ -1,0 +1,15 @@
+name: Run every 3 minutes
+
+on:
+  schedule:
+    - cron: "*/3 * * * *"
+
+jobs:
+  run-scheduled-task:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run your task
+        run: echo "This workflow runs every 3 minutes"

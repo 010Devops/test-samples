@@ -1,0 +1,21 @@
+name: Deployment Approver
+
+on:
+  workflow_dispatch:  # Manual trigger
+  push:
+    branches:
+      - main  # Trigger on push to main branch
+
+jobs:
+  deploy:
+    environment: main  # This enables the approval step
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Azure
+        run: |
+          echo "Deploying application..."
+          # Add your deployment commands here

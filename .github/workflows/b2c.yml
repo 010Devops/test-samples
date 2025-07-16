@@ -1,0 +1,30 @@
+name: B2C
+
+on:
+  pull_request:
+    paths:
+      - 'folder/test.txt'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: List Folders in B2C_WEBAPP_PATH
+      run: |
+        Get-ChildItem -Path  "${{ github.workspace }}/folder" -Recurse
+      shell: pwsh
+
+    - name: Check Branch Name Validity
+      run: |
+         branch_name=$(echo "${{ github.ref_name }}" | tr '[:upper:]' '[:lower:]')
+         if [[ "$branch_name" == *dev* ]]; then
+           echo "Branch name is valid. Proceeding with the workflow."
+         else
+           echo "Error: The branch name does not meet the required criteria. Please select a valid branch for this workflow."
+           exit 1
+         fi
